@@ -43,6 +43,7 @@ def disp1(temp, beerID, SG, date):
     draw.text((x, 54), date, font=font, fill=255)
     disp.image(image)
     disp.display()
+    time.sleep(0.1)
 # Layout for display2
 def disp2(OG, FG, SG, ABV):
     draw.rectangle((0,0, width, height), outline=0, fill=0)
@@ -55,7 +56,7 @@ def disp2(OG, FG, SG, ABV):
     draw.text((width/2-32, height/2+20), "ABV: {}%".format(ABV), font=font, fill=255)
     disp.image(image)
     disp.display()
-
+    time.sleep(0.1)
 #Initier display
 DC=23
 RST=None
