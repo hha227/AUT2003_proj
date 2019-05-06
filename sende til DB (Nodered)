@@ -1,1 +1,158 @@
-[{"id":"c7dcc91e.0b4ef8","type":"tab","label":"Flow 1","disabled":false,"info":""},{"id":"17e0920f.9bef0e","type":"debug","z":"c7dcc91e.0b4ef8","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":530,"y":370,"wires":[]},{"id":"57cec062.699e2","type":"ui_form","z":"c7dcc91e.0b4ef8","name":"","label":"","group":"57f29b17.8f8fc4","order":1,"width":0,"height":0,"options":[{"label":"Brew name","value":"brew_name","type":"text","required":true},{"label":"Brewer","value":"brewer","type":"text","required":true},{"label":"Original gravity","value":"og","type":"number","required":true},{"label":"Target final gravity","value":"target_fg","type":"number","required":false},{"label":"Target temperature","value":"target_temp","type":"number","required":false}],"formValue":{"brew_name":"","brewer":"","og":"","target_fg":"","target_temp":""},"payload":"","submit":"submit","cancel":"cancel","topic":"","x":120,"y":250,"wires":[["b2ead0.39e2253","e300900d.3339d"]]},{"id":"b2ead0.39e2253","type":"debug","z":"c7dcc91e.0b4ef8","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":260,"y":310,"wires":[]},{"id":"e300900d.3339d","type":"function","z":"c7dcc91e.0b4ef8","name":"","func":"msg.topic = \"INSERT INTO BREW_INFO (brew_name, brewer, og, target_fg, target_temp) VALUES (\" + msg.payload.brew_name + \", \" + msg.payload.brewer + \", \" + msg.payload.og + \", \" + msg.payload.target_fg + \", \" + msg.payload.target_temp + \")\"\nreturn msg;","outputs":1,"noerr":0,"x":350,"y":250,"wires":[["17e0920f.9bef0e","602c2f4d.02c18"]]},{"id":"602c2f4d.02c18","type":"mysql","z":"c7dcc91e.0b4ef8","name":"","x":530,"y":250,"wires":[[]]},{"id":"57f29b17.8f8fc4","type":"ui_group","z":"","name":"Setup new brew","tab":"d3d1c67.d1a4538","order":2,"disp":true,"width":"6","collapse":false},{"id":"d3d1c67.d1a4538","type":"ui_tab","z":"","name":"Setup new brew","icon":"dashboard","order":2,"disabled":false,"hidden":false}]
+[
+    {
+        "id": "c7dcc91e.0b4ef8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "17e0920f.9bef0e",
+        "type": "debug",
+        "z": "c7dcc91e.0b4ef8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 370,
+        "wires": []
+    },
+    {
+        "id": "57cec062.699e2",
+        "type": "ui_form",
+        "z": "c7dcc91e.0b4ef8",
+        "name": "",
+        "label": "",
+        "group": "57f29b17.8f8fc4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Brew name",
+                "value": "brew_name",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Brewer",
+                "value": "brewer",
+                "type": "text",
+                "required": true
+            },
+            {
+                "label": "Original gravity",
+                "value": "og",
+                "type": "number",
+                "required": true
+            },
+            {
+                "label": "Target final gravity",
+                "value": "target_fg",
+                "type": "number",
+                "required": false
+            },
+            {
+                "label": "Target temperature",
+                "value": "target_temp",
+                "type": "number",
+                "required": false
+            }
+        ],
+        "formValue": {
+            "brew_name": "",
+            "brewer": "",
+            "og": "",
+            "target_fg": "",
+            "target_temp": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 120,
+        "y": 250,
+        "wires": [
+            [
+                "b2ead0.39e2253",
+                "e300900d.3339d"
+            ]
+        ]
+    },
+    {
+        "id": "b2ead0.39e2253",
+        "type": "debug",
+        "z": "c7dcc91e.0b4ef8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 260,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "e300900d.3339d",
+        "type": "function",
+        "z": "c7dcc91e.0b4ef8",
+        "name": "",
+        "func": "msg.topic = \"INSERT INTO BREW_INFO (brew_name, brewer, og, target_fg, target_temp) VALUES ('\" + msg.payload.brew_name + \"', '\" + msg.payload.brewer + \"', \" + msg.payload.og + \", \" + msg.payload.target_fg + \", \" + msg.payload.target_temp + \")\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 250,
+        "wires": [
+            [
+                "17e0920f.9bef0e",
+                "602c2f4d.02c18"
+            ]
+        ]
+    },
+    {
+        "id": "602c2f4d.02c18",
+        "type": "mysql",
+        "z": "c7dcc91e.0b4ef8",
+        "mydb": "45b34b2a.51e984",
+        "name": "",
+        "x": 550,
+        "y": 250,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57f29b17.8f8fc4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Setup new brew",
+        "tab": "d3d1c67.d1a4538",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "45b34b2a.51e984",
+        "type": "MySQLdatabase",
+        "z": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "projekt2003",
+        "tz": ""
+    },
+    {
+        "id": "d3d1c67.d1a4538",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Setup new brew",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
