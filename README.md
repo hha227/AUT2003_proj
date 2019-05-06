@@ -2,7 +2,7 @@
 
 ## Mål:
 
-* Måle relativ tetthet til væske under gjæring*
+* Måle relativ tetthet til væske under gjæring
 
 * Regne om til alkoholprosent
 
@@ -13,28 +13,28 @@
 ## Todo:
 
 
-* Utlede utrykk for utregninger
+* ~~Utlede utrykk for utregninger~~
 
-* Temperaturens innvirkning på massetetthet
+* ~~Temperaturens innvirkning på massetetthet~~
 
-* Omregning fra vekt til relativ massetetthet
+* ~~Omregning fra vekt til relativ massetetthet~~
 
-* Omregning fra relativ massetetthet til alkoholprosent
+* ~~Omregning fra relativ massetetthet til alkoholprosent~~
 
 * Oppkobling og test av komponenter
 
-* Skrive program for:
-
-* Mottak og filtrering av data
-
-* Omregning av data
-
-* Lagre verdier i database
-
-* Skrive til display
-
-* Sette opp webserver (Node Red)
-
 * Test av utstyr i praksis
 
-* Lage hus til elektronik
+* Lage hus til elektronikk
+
+* Skrive program for:
+
+..* Mottak og filtrering av data
+
+..* Omregning av data
+
+..* ~~Lagre verdier i database~~
+
+..* ~~Skrive til display~~
+
+..* Sette opp webserver (Node Red)
