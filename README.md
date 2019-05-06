@@ -1,6 +1,6 @@
 # AUT2003_proj
 
-##Mål:
+## Mål:
 
 * Måle relativ tetthet til væske under gjæring*
 
@@ -10,7 +10,7 @@
 
 * Vise verdier på display
 
-##Todo:
+## Todo:
 
 
 * Utlede utrykk for utregninger
