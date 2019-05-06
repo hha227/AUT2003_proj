@@ -27,14 +27,14 @@
 
 * Lage hus til elektronikk
 
-* Skrive program for:
+### Skrive program for:
 
-..* Mottak og filtrering av data
+* Mottak og filtrering av data
 
-..* Omregning av data
+* Omregning av data
 
-..* ~~Lagre verdier i database~~
+* ~~Lagre verdier i database~~
 
-..* ~~Skrive til display~~
+* ~~Skrive til display~~
 
-..* Sette opp webserver (Node Red)
+* Sette opp webserver (Node Red)
