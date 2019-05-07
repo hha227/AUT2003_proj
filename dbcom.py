@@ -6,7 +6,7 @@ def addBrew(brew_name, brewer, og, target_fg, target_temp):
     cursor = db.cursor()
     #Creating sql query
     sql = "INSERT INTO BREW_INFO(BrewName, Brewer, OG, TargetFG, TargetTemp)\
-          VALUES('{}','{}','{:05.4f}','{:05.4f}','{:d}');\
+          VALUES('{}','{}','{:05.3f}','{:05.3f}','{:d}');\
           ".format(brew_name, brewer, og, target_fg, target_temp)
     try:
         cursor.execute(sql)
@@ -21,7 +21,7 @@ def addMeasurement(id,gravity,temp):
     db = pymysql.connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'], cfg.mysql['database']) #Open DB-connection
     cursor = db.cursor()
     sql = "INSERT INTO MEASUREMENTS(BrewID, SG, Temperature)\
-           VALUES('{:d}','{:05.4f}','{:d}')".format(getCurrentBrewId(),gravity,temp)
+           VALUES('{:d}','{:05.3f}','{:d}')".format(getCurrentBrewId(),gravity,temp)
     try:
         cursor.execute(sql)
         db.commit()
