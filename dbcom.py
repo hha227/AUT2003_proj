@@ -41,7 +41,7 @@ def getCurrentBrewId():
         print('Error')
     finally:
         db.close()
-    return brew_id[0]
+    return int(brew_id[0])
 
 def getBrewInfo(property, id):
     db = pymysql.connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'], cfg.mysql['database']) #Open DB-connection

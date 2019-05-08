@@ -3,9 +3,16 @@ import numpy as np
 treshold = 3
 
 def filterData(inputData):
-    dataset = removeOutliers(inputData)
+    dataset = removeFalseData(inputData)
+    dataset = removeOutliers(dataset)
     return np.mean(dataset)
 
+def removeFalseData(inputData):
+    while(1):
+        try:
+            inputData.remove(False)
+        except ValueError:
+            break
 
 def removeOutliers(inputData):
     dataset = (inputData)
