@@ -6,7 +6,6 @@ def removeFalseData(input_data):
     while(1):
         try:
             input_data.remove(False)
-            print('removed')
         except ValueError:
             break
     return(input_data)

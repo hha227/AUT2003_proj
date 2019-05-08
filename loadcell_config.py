@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import RPi.GPIO as GPIO # Importerer GPIO
-from hx711 import HX711 # Importerer klassen for HX711
-
 GPIO.setmode(GPIO.BCM)  # BCM-nummerering av pinner
+from hx711 import HX711 # Importerer klassen for HX711
+                        # Fra https://github.com/gandalf15/HX711.git
+
 
 # Initierer ny instans av lastcelleklasse.
 hx = HX711(
@@ -26,5 +27,3 @@ def getreadings(nr):
 def get_density(OG, hxdata, scale_ratio):   # Regner massetetthet fra data
     density=OG(1-scale_ratio*hxdata)
     return density
-while(1):
-    print(getreadings(12))

@@ -21,7 +21,7 @@ def addMeasurement(id,gravity,temp):
     db = pymysql.connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'], cfg.mysql['database']) #Open DB-connection
     cursor = db.cursor()
     sql = "INSERT INTO MEASUREMENTS(BrewID, SG, Temperature)\
-           VALUES('{:d}','{:05.3f}','{:d}')".format(getCurrentBrewId(),gravity,temp)
+           VALUES('{:d}','{:05.3f}','{:04.2f}')".format(getCurrentBrewId(),gravity,temp)
     try:
         cursor.execute(sql)
         db.commit()
