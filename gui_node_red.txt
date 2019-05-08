@@ -1,1 +1,720 @@
-[{"id":"aa83f32.5dfa21","type":"tab","label":"Flow 2","disabled":false,"info":""},{"id":"a8cee055.65f0a","type":"daemon","z":"aa83f32.5dfa21","name":"","command":"python3","args":"-u /home/pi/devpro/AUT2003_proj/test.py","autorun":false,"cr":false,"redo":false,"op":"string","closer":"SIGTERM","x":600,"y":1020,"wires":[[],[],[]]},{"id":"19e223f5.e2613c","type":"debug","z":"aa83f32.5dfa21","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":840,"y":1230,"wires":[]},{"id":"bf5e4fc6.b64c9","type":"inject","z":"aa83f32.5dfa21","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":190,"y":1200,"wires":[["a62db9ec.75d338"]]},{"id":"3a76b2e2.24804e","type":"inject","z":"aa83f32.5dfa21","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":190,"y":1260,"wires":[["558bcb94.4b9164"]]},{"id":"a62db9ec.75d338","type":"function","z":"aa83f32.5dfa21","name":"kill","func":"msg.kill = 1;\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":1200,"wires":[[]]},{"id":"558bcb94.4b9164","type":"function","z":"aa83f32.5dfa21","name":"start","func":"msg.start = \"1\";\nreturn msg;\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":1260,"wires":[[]]},{"id":"18a0ae.aac6af52","type":"ui_text_input","z":"aa83f32.5dfa21","name":"Brew name","label":"Brew name","tooltip":"","group":"3485f00f.6e6ef","order":3,"width":0,"height":0,"passthru":true,"mode":"text","delay":300,"topic":"","x":150,"y":250,"wires":[["e805f2dd.aee"]]},{"id":"af263432.228fe8","type":"ui_text_input","z":"aa83f32.5dfa21","name":"Brewer","label":"Brewer","tooltip":"","group":"3485f00f.6e6ef","order":4,"width":0,"height":0,"passthru":true,"mode":"text","delay":300,"topic":"","x":140,"y":300,"wires":[["d62d1378.6a569"]]},{"id":"32a34a9d.8b9066","type":"ui_numeric","z":"aa83f32.5dfa21","name":"Original gravity","label":"OG","tooltip":"","group":"3485f00f.6e6ef","order":5,"width":0,"height":0,"passthru":true,"topic":"","format":"{{value}}","min":"1.000","max":"1.100","step":"0.001","x":160,"y":350,"wires":[["b43879e0.3274b8"]]},{"id":"79fae2be.dd7d5c","type":"ui_numeric","z":"aa83f32.5dfa21","name":"Final gravity","label":"Final gravity","tooltip":"","group":"3485f00f.6e6ef","order":6,"width":0,"height":0,"passthru":true,"topic":"","format":"{{value}}","min":"1.000","max":"1.100","step":"0.001","x":150,"y":400,"wires":[["2d61489f.bac4b8"]]},{"id":"5fc05029.d3fb2","type":"ui_numeric","z":"aa83f32.5dfa21","name":"","label":"Target temperature","tooltip":"","group":"3485f00f.6e6ef","order":7,"width":0,"height":0,"passthru":true,"topic":"Target temperature","format":"","min":0,"max":"40","step":1,"x":170,"y":450,"wires":[["42044f73.4ece2"]]},{"id":"948b1df3.f6bcb","type":"config","z":"aa83f32.5dfa21","name":"","properties":[{"p":"brew_name","pt":"flow","to":"","tot":"str"},{"p":"brewer","pt":"flow","to":"","tot":"str"},{"p":"og","pt":"flow","to":"","tot":"str"},{"p":"fg","pt":"flow","to":"","tot":"str"},{"p":"target_temp","pt":"flow","to":"","tot":"str"},{"p":"logging","pt":"flow","to":"true","tot":"bool"},{"p":"latest_brew","pt":"flow","to":"","tot":"str"},{"p":"python_running","pt":"flow","to":"false","tot":"bool"}],"active":true,"x":150,"y":60,"wires":[]},{"id":"e805f2dd.aee","type":"function","z":"aa83f32.5dfa21","name":"set brew_name","func":"flow.set('brew_name', msg.payload)\nreturn msg;","outputs":1,"noerr":0,"x":410,"y":250,"wires":[[]]},{"id":"b43879e0.3274b8","type":"function","z":"aa83f32.5dfa21","name":"set OG","func":"flow.set('og', msg.payload)\nreturn msg;","outputs":1,"noerr":0,"x":390,"y":350,"wires":[[]]},{"id":"d62d1378.6a569","type":"function","z":"aa83f32.5dfa21","name":"set brewer","func":"flow.set('brewer', msg.payload)\nreturn msg;","outputs":1,"noerr":0,"x":400,"y":300,"wires":[[]]},{"id":"2d61489f.bac4b8","type":"function","z":"aa83f32.5dfa21","name":"set FG","func":"flow.set('fg', msg.payload)\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":400,"wires":[[]]},{"id":"42044f73.4ece2","type":"function","z":"aa83f32.5dfa21","name":"set target_temp","func":"flow.set('target_temp', msg.payload)\nreturn msg;","outputs":1,"noerr":0,"x":410,"y":450,"wires":[[]]},{"id":"cd495f73.6654d","type":"ui_button","z":"aa83f32.5dfa21","name":"Add brew","group":"3485f00f.6e6ef","order":8,"width":0,"height":0,"passthru":false,"label":"add brew","tooltip":"","color":"","bgcolor":"","icon":"","payload":"","payloadType":"str","topic":"","x":140,"y":520,"wires":[["176efdc5.78fd82"]]},{"id":"176efdc5.78fd82","type":"function","z":"aa83f32.5dfa21","name":"addBrew","func":"var brew_name = flow.get('brew_name');\nvar brewer = flow.get('brewer');\nvar og = flow.get('og');\nvar fg = flow.get('fg');\nvar target_temp = flow.get('target_temp');\nvar sql = \"INSERT INTO BREW_INFO(BrewName, Brewer, OG, TargetFG, TargetTemp, IsActive) VALUES('\"+brew_name+\"','\"+brewer+\"','\"+og+\"','\"+fg+\"','\"+target_temp+\"','FLASE');\";\nmsg.topic = sql;\nreturn msg;","outputs":1,"noerr":0,"x":390,"y":520,"wires":[["827a8bd3.52c1c8"]]},{"id":"827a8bd3.52c1c8","type":"mysql","z":"aa83f32.5dfa21","mydb":"61c604aa.9fa5fc","name":"BeerDB","x":580,"y":520,"wires":[[]]},{"id":"f39e1038.3fbdd","type":"debug","z":"aa83f32.5dfa21","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":1110,"y":860,"wires":[]},{"id":"781cd19c.44323","type":"ui_text","z":"aa83f32.5dfa21","group":"7438fd3d.9a07c4","order":3,"width":0,"height":0,"name":"Log status","label":"Status","format":"{{msg.payload}}","layout":"row-spread","x":570,"y":770,"wires":[]},{"id":"14d43817.16b278","type":"mysql","z":"aa83f32.5dfa21","mydb":"61c604aa.9fa5fc","name":"BeerDB","x":1030,"y":680,"wires":[["f659f00b.82093"]]},{"id":"c73fdadb.f65f98","type":"function","z":"aa83f32.5dfa21","name":"getStatus setLatestBrew","func":"var latest_brew = msg.payload[0].ID;\nflow.set('latest_brew', latest_brew)\nvar sql = \"SELECT IsActive from BREW_INFO WHERE BrewID=\"+latest_brew+\";\";\nmsg.topic = sql;\n\nreturn msg;","outputs":1,"noerr":0,"x":810,"y":680,"wires":[["14d43817.16b278"]]},{"id":"c896b967.a5d8c8","type":"function","z":"aa83f32.5dfa21","name":"getLatestBrew","func":"var sql = \"SELECT MAX(BrewID) AS ID FROM BREW_INFO;\";\nmsg.topic = sql;\nreturn msg;","outputs":1,"noerr":0,"x":410,"y":680,"wires":[["c17d7154.eb61e"]]},{"id":"c17d7154.eb61e","type":"mysql","z":"aa83f32.5dfa21","mydb":"61c604aa.9fa5fc","name":"BeerDB","x":590,"y":680,"wires":[["c73fdadb.f65f98"]]},{"id":"f659f00b.82093","type":"function","z":"aa83f32.5dfa21","name":"setStatus","func":"if (msg.payload[0].IsActive == 1) {\n    flow.set('logging', true)\n} else {\n    flow.set('logging', false)\n}\nreturn msg;","outputs":1,"noerr":0,"x":1240,"y":680,"wires":[[]]},{"id":"c28bece2.6617f","type":"inject","z":"aa83f32.5dfa21","name":"","topic":"","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":0.1,"x":150,"y":770,"wires":[["c896b967.a5d8c8","77b8b435.2bf58c","ff1f7122.08ff1"]]},{"id":"77b8b435.2bf58c","type":"function","z":"aa83f32.5dfa21","name":"set status","func":"if (flow.get('logging')) {\n    msg.payload = 'Logging'\n} else {\n    msg.payload = 'Not logging'\n}\nreturn msg;","outputs":1,"noerr":0,"x":390,"y":770,"wires":[["781cd19c.44323"]]},{"id":"ff1f7122.08ff1","type":"function","z":"aa83f32.5dfa21","name":"set label","func":"if (flow.get('logging')) {\n    msg.label = 'Stop logger'\n} else {\n    msg.label = 'Start logger'\n}\nreturn msg;","outputs":1,"noerr":0,"x":390,"y":860,"wires":[["52ad47a9.1ef908"]]},{"id":"52ad47a9.1ef908","type":"ui_button","z":"aa83f32.5dfa21","name":"Start/stop","group":"7438fd3d.9a07c4","order":3,"width":0,"height":0,"passthru":false,"label":"{{msg.label}}","tooltip":"","color":"","bgcolor":"","icon":"","payload":"","payloadType":"date","topic":"","x":560,"y":860,"wires":[["450fccb7.5dbff4"]]},{"id":"cbf97edd.f7069","type":"function","z":"aa83f32.5dfa21","name":"start/stop","func":"if (flow.get('logging')){\n    msg.kill = 1;\n} else {\n    msg.start = 1;\n}\nreturn msg;","outputs":1,"noerr":0,"x":390,"y":1020,"wires":[["a8cee055.65f0a"]]},{"id":"450fccb7.5dbff4","type":"function","z":"aa83f32.5dfa21","name":"updateDB","func":"var sql = \"UPDATE BREW_INFO SET IsActive=\"+!flow.get('logging')+\" WHERE BrewID =\"+flow.get('latest_brew')+\";\";\nmsg.topic = sql;\nreturn msg;","outputs":1,"noerr":0,"x":740,"y":860,"wires":[["8eea0e97.1e095"]]},{"id":"895da80f.695308","type":"inject","z":"aa83f32.5dfa21","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":1430,"y":1030,"wires":[[]]},{"id":"8eea0e97.1e095","type":"mysql","z":"aa83f32.5dfa21","mydb":"61c604aa.9fa5fc","name":"BeerDB","x":920,"y":860,"wires":[["f39e1038.3fbdd"]]},{"id":"30a92a3d.dbcc46","type":"function","z":"aa83f32.5dfa21","name":"setPythonStatus","func":"if (msg.kill == 1){\n    flow.set('python_running', false)\n} else if (msg.start == 1) {\n    flow.set('python_running', true)\n}\nreturn msg;","outputs":1,"noerr":0,"x":850,"y":940,"wires":[[]]},{"id":"3485f00f.6e6ef","type":"ui_group","z":"","name":"Add brew","tab":"c9be4f72.41107","disp":true,"width":"6","collapse":false},{"id":"61c604aa.9fa5fc","type":"MySQLdatabase","z":"","host":"127.0.0.1","port":"3306","db":"BeerDB","tz":""},{"id":"7438fd3d.9a07c4","type":"ui_group","z":"","name":"Logger","tab":"c9be4f72.41107","disp":true,"width":"6","collapse":false},{"id":"c9be4f72.41107","type":"ui_tab","z":"","name":"Hydrometer","icon":"dashboard","disabled":false,"hidden":false}]
+[
+    {
+        "id": "a0ce4ae7.74c278",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "449f6b55.07d204",
+        "type": "daemon",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "command": "python3",
+        "args": "-u /home/pi/devpro/AUT2003_proj/test.py",
+        "autorun": false,
+        "cr": false,
+        "redo": false,
+        "op": "string",
+        "closer": "SIGTERM",
+        "x": 600,
+        "y": 972,
+        "wires": [
+            [
+                "129f9551.1192ab"
+            ],
+            [],
+            [
+                "c5dcfef6.fbb9"
+            ]
+        ]
+    },
+    {
+        "id": "5f13a5b1.dde3ec",
+        "type": "inject",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1200,
+        "wires": [
+            [
+                "56cb0f87.0011a"
+            ]
+        ]
+    },
+    {
+        "id": "caf38eae.1a341",
+        "type": "inject",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 1260,
+        "wires": [
+            [
+                "7c585bc1.44d164"
+            ]
+        ]
+    },
+    {
+        "id": "56cb0f87.0011a",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "kill",
+        "func": "msg.kill = 1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c585bc1.44d164",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "start",
+        "func": "msg.start = \"1\";\nreturn msg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47f0f4db.7f7a9c",
+        "type": "ui_text_input",
+        "z": "a0ce4ae7.74c278",
+        "name": "Brew name",
+        "label": "Brew name",
+        "tooltip": "",
+        "group": "affede6c.2b81f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "",
+        "x": 150,
+        "y": 250,
+        "wires": [
+            [
+                "d82aa73f.8dc8b8"
+            ]
+        ]
+    },
+    {
+        "id": "7997ba85.0478f4",
+        "type": "ui_text_input",
+        "z": "a0ce4ae7.74c278",
+        "name": "Brewer",
+        "label": "Brewer",
+        "tooltip": "",
+        "group": "affede6c.2b81f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "50cbe1c3.9bce2"
+            ]
+        ]
+    },
+    {
+        "id": "89828770.4229a8",
+        "type": "ui_numeric",
+        "z": "a0ce4ae7.74c278",
+        "name": "Original gravity",
+        "label": "OG",
+        "tooltip": "",
+        "group": "affede6c.2b81f",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "format": "{{value}}",
+        "min": "1.000",
+        "max": "1.100",
+        "step": "0.001",
+        "x": 160,
+        "y": 350,
+        "wires": [
+            [
+                "6997533a.d645fc"
+            ]
+        ]
+    },
+    {
+        "id": "2a1cfbb4.e95fe4",
+        "type": "ui_numeric",
+        "z": "a0ce4ae7.74c278",
+        "name": "Final gravity",
+        "label": "Final gravity",
+        "tooltip": "",
+        "group": "affede6c.2b81f",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "format": "{{value}}",
+        "min": "1.000",
+        "max": "1.100",
+        "step": "0.001",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "857be178.c9229"
+            ]
+        ]
+    },
+    {
+        "id": "6b3a1d91.dd26f4",
+        "type": "ui_numeric",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "label": "Target temperature",
+        "tooltip": "",
+        "group": "affede6c.2b81f",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "Target temperature",
+        "format": "",
+        "min": 0,
+        "max": "40",
+        "step": 1,
+        "x": 170,
+        "y": 450,
+        "wires": [
+            [
+                "861544a7.c44878"
+            ]
+        ]
+    },
+    {
+        "id": "2ca260db.dcaa8",
+        "type": "config",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "properties": [
+            {
+                "p": "brew_name",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "brewer",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "og",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "fg",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "target_temp",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "logging",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "p": "latest_brew",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "p": "python_running",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "active": true,
+        "x": 150,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d82aa73f.8dc8b8",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set brew_name",
+        "func": "flow.set('brew_name', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 250,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6997533a.d645fc",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set OG",
+        "func": "flow.set('og', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 350,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50cbe1c3.9bce2",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set brewer",
+        "func": "flow.set('brewer', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "857be178.c9229",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set FG",
+        "func": "flow.set('fg', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "861544a7.c44878",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set target_temp",
+        "func": "flow.set('target_temp', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 450,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8b8ff77.f3fd7",
+        "type": "ui_button",
+        "z": "a0ce4ae7.74c278",
+        "name": "Add brew",
+        "group": "affede6c.2b81f",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "add brew",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 140,
+        "y": 520,
+        "wires": [
+            [
+                "73f4649b.3f8bfc"
+            ]
+        ]
+    },
+    {
+        "id": "73f4649b.3f8bfc",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "addBrew",
+        "func": "var brew_name = flow.get('brew_name');\nvar brewer = flow.get('brewer');\nvar og = flow.get('og');\nvar fg = flow.get('fg');\nvar target_temp = flow.get('target_temp');\nvar sql = \"INSERT INTO BREW_INFO(BrewName, Brewer, OG, TargetFG, TargetTemp, IsActive) VALUES('\"+brew_name+\"','\"+brewer+\"','\"+og+\"','\"+fg+\"','\"+target_temp+\"','FLASE');\";\nmsg.topic = sql;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 520,
+        "wires": [
+            [
+                "dce2fc2f.7f21f"
+            ]
+        ]
+    },
+    {
+        "id": "dce2fc2f.7f21f",
+        "type": "mysql",
+        "z": "a0ce4ae7.74c278",
+        "mydb": "7d3931d0.b8409",
+        "name": "BeerDB",
+        "x": 580,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fdbe01b6.8b3ee",
+        "type": "ui_text",
+        "z": "a0ce4ae7.74c278",
+        "group": "51f2db0.ac37a24",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Log status",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 570,
+        "y": 770,
+        "wires": []
+    },
+    {
+        "id": "9b2ecf39.758cc",
+        "type": "mysql",
+        "z": "a0ce4ae7.74c278",
+        "mydb": "7d3931d0.b8409",
+        "name": "BeerDB",
+        "x": 1030,
+        "y": 680,
+        "wires": [
+            [
+                "aec53c83.37072"
+            ]
+        ]
+    },
+    {
+        "id": "9cde3ff5.00a5e",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "getStatus setLatestBrew",
+        "func": "var latest_brew = msg.payload[0].ID;\nflow.set('latest_brew', latest_brew)\nvar sql = \"SELECT IsActive from BREW_INFO WHERE BrewID=\"+latest_brew+\";\";\nmsg.topic = sql;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 680,
+        "wires": [
+            [
+                "9b2ecf39.758cc"
+            ]
+        ]
+    },
+    {
+        "id": "c7b6ef80.c4823",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "getLatestBrew",
+        "func": "var sql = \"SELECT MAX(BrewID) AS ID FROM BREW_INFO;\";\nmsg.topic = sql;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 680,
+        "wires": [
+            [
+                "280142e7.ab7cde"
+            ]
+        ]
+    },
+    {
+        "id": "280142e7.ab7cde",
+        "type": "mysql",
+        "z": "a0ce4ae7.74c278",
+        "mydb": "7d3931d0.b8409",
+        "name": "BeerDB",
+        "x": 590,
+        "y": 680,
+        "wires": [
+            [
+                "9cde3ff5.00a5e"
+            ]
+        ]
+    },
+    {
+        "id": "aec53c83.37072",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "setStatus",
+        "func": "if (msg.payload[0].IsActive == 1) {\n    flow.set('logging', true)\n} else {\n    flow.set('logging', false)\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1240,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa0888f9.9f6318",
+        "type": "inject",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 810,
+        "wires": [
+            [
+                "c7b6ef80.c4823",
+                "5c559411.d3becc",
+                "dfbd36f3.e13508",
+                "61a382d0.4cef7c"
+            ]
+        ]
+    },
+    {
+        "id": "5c559411.d3becc",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set status",
+        "func": "if (flow.get('logging')) {\n    msg.payload = 'Logging'\n} else {\n    msg.payload = 'Not logging'\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 770,
+        "wires": [
+            [
+                "fdbe01b6.8b3ee"
+            ]
+        ]
+    },
+    {
+        "id": "dfbd36f3.e13508",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "set label",
+        "func": "if (flow.get('logging')) {\n    msg.label = 'Stop logger'\n} else {\n    msg.label = 'Start logger'\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 860,
+        "wires": [
+            [
+                "d9c9feb4.68712"
+            ]
+        ]
+    },
+    {
+        "id": "d9c9feb4.68712",
+        "type": "ui_button",
+        "z": "a0ce4ae7.74c278",
+        "name": "Start/stop",
+        "group": "51f2db0.ac37a24",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 560,
+        "y": 860,
+        "wires": [
+            [
+                "65dd51bc.09068"
+            ]
+        ]
+    },
+    {
+        "id": "61a382d0.4cef7c",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "start/stop",
+        "func": "var py_stat = flow.get('python_running')\nvar log_stat = flow.get('logging')\n\nif (!py_stat && log_stat){\n    msg.start= \"\";\n    return msg;\n} else if (py_stat && !log_stat) {\n    msg.kill = \"SIGINT\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 972,
+        "wires": [
+            [
+                "449f6b55.07d204"
+            ]
+        ]
+    },
+    {
+        "id": "65dd51bc.09068",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "updateDB",
+        "func": "var sql = \"UPDATE BREW_INFO SET IsActive=\"+!flow.get('logging')+\" WHERE BrewID =\"+flow.get('latest_brew')+\";\";\nmsg.topic = sql;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 860,
+        "wires": [
+            [
+                "2bdcb530.42fd9a"
+            ]
+        ]
+    },
+    {
+        "id": "d9b6d7bb.b656f8",
+        "type": "inject",
+        "z": "a0ce4ae7.74c278",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1430,
+        "y": 1030,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bdcb530.42fd9a",
+        "type": "mysql",
+        "z": "a0ce4ae7.74c278",
+        "mydb": "7d3931d0.b8409",
+        "name": "BeerDB",
+        "x": 920,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f7340c0a.c4fb3",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "setPythonStatus",
+        "func": "if (msg.kill == 1){\n    flow.set('python_running', false)\n} else if (msg.start == 1) {\n    flow.set('python_running', true)\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1210,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "129f9551.1192ab",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "updateProcessStatus start",
+        "func": "if (msg.payload) {\n    flow.set('python_running', true)\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 880,
+        "y": 932,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c5dcfef6.fbb9",
+        "type": "function",
+        "z": "a0ce4ae7.74c278",
+        "name": "updateProcessStatus stop",
+        "func": "if (msg.payload) {\n    flow.set('python_running', false)\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 1012,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "affede6c.2b81f",
+        "type": "ui_group",
+        "z": "",
+        "name": "Add brew",
+        "tab": "eba60927.14ac88",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "7d3931d0.b8409",
+        "type": "MySQLdatabase",
+        "z": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "BeerDB",
+        "tz": ""
+    },
+    {
+        "id": "51f2db0.ac37a24",
+        "type": "ui_group",
+        "z": "",
+        "name": "Logger",
+        "tab": "eba60927.14ac88",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "eba60927.14ac88",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Hydrometer",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
