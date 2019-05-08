@@ -19,10 +19,12 @@ def getreading():                  # Returnerer én måling
 def getreadings(nr):
     readings = []
     for i in range(nr):
-        
+        readings.append(hx._read())
+    return readings
+
 
 def get_density(OG, hxdata, scale_ratio):   # Regner massetetthet fra data
     density=OG(1-scale_ratio*hxdata)
     return density
 while(1):
-    print(getreadings())
+    print(getreadings(12))
