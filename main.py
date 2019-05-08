@@ -16,7 +16,7 @@ def getTempSample():
     return temp
 
 def getGravSample():
-    raw_data = loadcell.getreadings()
+    raw_data = loadcell.getreadings(no_load_samples)
     filtered_data = filter.filterData(raw_data)
     return filtered_data
 
