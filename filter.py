@@ -2,26 +2,27 @@ import numpy as np
 
 treshold = 3
 
-def filterData(inputData):
-    dataset = removeFalseData(inputData)
-    dataset = removeOutliers(dataset)
-    return np.mean(dataset)
-
-def removeFalseData(inputData):
+def removeFalseData(input_data):
     while(1):
         try:
-            inputData.remove(False)
+            input_data.remove(False)
+            print('removed')
         except ValueError:
             break
+    return(input_data)
 
-def removeOutliers(inputData):
-    dataset = (inputData)
-    processedData = []
-    mean = np.mean(dataset)
+def removeOutliers(input_data):
+    dataset = input_data
+    processed_data = []
+    avg = np.mean(dataset)
     stdev = np.std(dataset)
     for val in dataset:
-        z_score = (val - mean)/stdev
+        z_score = (val - avg)/stdev
         if z_score < treshold:
-            processedData.append(val)
-    print(processedData)
-    return processedData
+            processed_data.append(val)
+    return processed_data
+
+def filterData(input_data):
+    dataset = removeFalseData(input_data)
+    dataset = removeOutliers(dataset)
+    return np.mean(dataset)
