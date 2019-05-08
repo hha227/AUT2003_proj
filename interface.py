@@ -85,8 +85,6 @@ def disp2(OG, FG, SG, ABV):
 try:
 
     while(1):
-        currentDT = datetime.datetime.now()
-        crt_date = currentDT.strftime("%Y-%m-%d %H:%M:%S")
         if view==0:
             disp1(round(gettemp.gettemp(),2), test_beerID, test_SG, target_temp)
 
