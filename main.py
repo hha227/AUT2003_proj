@@ -21,7 +21,7 @@ def getGravSample():
     return filtered_data
 
 #Init
-current_brew = db.getCurrentBrewId()
+current_brew_id = db.getCurrentBrewId()
 start_sample_time = time.time()
 start_average_time = time.time()
 temp_samples = []
