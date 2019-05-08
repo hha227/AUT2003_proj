@@ -22,7 +22,8 @@ def getGravSample():
 
 #Init
 current_brew = db.getCurrentBrewId()
-start_sample_time, start_average_time = time.time()
+start_sample_time = time.time()
+start_average_time = time.time()
 temp_samples = []
 grav_samples = []
 
@@ -40,5 +41,5 @@ while (1):
         start_sample_time = time_now
     if (time_now - start_average_time) > average_time:
         db.addMeasurement(current_brew_id, np.mean(grav_samples), np.mean(temp_samples)) #Add averagde of measurements from last hour to DB
-        
+
     #Get
