@@ -51,6 +51,7 @@ view=0
 print('Collecting info from databse')
 current_brew_id = db.getCurrentBrewId()
 brew_name = db.getBrewInfo('BrewName', current_brew_id)
+brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
@@ -62,7 +63,9 @@ start_sample_time = time.time()
 start_average_time = time.time()
 temp_samples = []
 grav_samples = []
+
 print('Init complete')
+
 
 
 #Take initial spot sample
@@ -100,14 +103,16 @@ while (1):
         start_average_time = time_now
         temp_samples.clear()
         grav_samples.clear()
+
         print('Running')
+
 
     #Update screen
     if view==0:
         try:
-            interface.disp1(temp_samples[-1], brew_name, grav_samples[-1], target_temp)
+            interface.disp1(temp_samples[-1], brew_name, brewer, grav_samples[-1], target_temp)
         except IndexError:
-            interface.disp1(initial_temp, brew_name, initial_grav, target_temp)
+            interface.disp1(initial_temp, brew_name, brewer, initial_grav, target_temp)
     elif view==1:
         try:
             interface.disp2(OG, FG, grav_samples[-1])

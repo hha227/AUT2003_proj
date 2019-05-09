@@ -41,10 +41,10 @@ top=0
 
 
 # Layout for display1
-def disp1(temp, beerID, SG, target_temp):
+def disp1(temp, beerID, brewer, SG, target_temp):
     currentDT = datetime.datetime.now()
     draw.rectangle((0,0, width, height), outline=0, fill=0)
-    draw.text((x, top), 'Brygg: {}'.format(beerID), font=font, fill=255)
+    draw.text((x, top), 'Brygg: {} ({})'.format(beerID, brewer), font=font, fill=255)
     draw.line((x,12, width,12), fill=255)
     draw.text((x, top+14), "S.G: {:4.3f}".format(SG), font=font, fill=255)
     draw.text((x, top+24), "Temp: {:4.2f}°".format(temp), font=font, fill=255)
@@ -52,7 +52,6 @@ def disp1(temp, beerID, SG, target_temp):
     draw.text((x, 54), currentDT.strftime("%Y-%m-%d %H:%M"), font=font, fill=255)
     disp.image(image)
     disp.display()
-    time.sleep(0.1)
 
 # Layout for display2
 def disp2(OG, FG, SG):
@@ -68,8 +67,12 @@ def disp2(OG, FG, SG):
     draw.text((width/2-32, height/2+20), "ABV: {}%".format(round(((OG-SG)/0.75)*100,2)), font=font, fill=255)
     disp.image(image)
     disp.display()
-    time.sleep(0.1)
 
+def dispInit():
+    draw.rectangle((0,0, width, height), outline=0, fill=0)
+    draw.text((width-12, 15), "Initierer...", font=font, fill=255)
+    disp.image(image)
+    disp.display()
 
 #
 # try:
