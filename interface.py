@@ -41,10 +41,10 @@ top=0
 
 
 # Layout for display1
-def disp1(temp, beerID, SG, target_temp):
+def disp1(temp, beerID, brewer, SG, target_temp):
     currentDT = datetime.datetime.now()
     draw.rectangle((0,0, width, height), outline=0, fill=0)
-    draw.text((x, top), 'Brygg: {}'.format(beerID), font=font, fill=255)
+    draw.text((x, top), 'Brygg: {} ({})'.format(beerID, brewer), font=font, fill=255)
     draw.line((x,12, width,12), fill=255)
     draw.text((x, top+14), "S.G: {:4.3f}".format(SG), font=font, fill=255)
     draw.text((x, top+24), "Temp: {:4.2f}°".format(temp), font=font, fill=255)

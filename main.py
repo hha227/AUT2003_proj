@@ -43,6 +43,7 @@ def getGravSample():
 #Init
 current_brew_id = db.getCurrentBrewId()
 brew_name = db.getBrewInfo('BrewName', current_brew_id)
+brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
@@ -50,6 +51,7 @@ start_sample_time = time.time()
 start_average_time = time.time()
 temp_samples = []
 grav_samples = []
+print(1)
 
 #Take initial spot sample
 db.addMeasurement(current_brew_id, getGravSample(), getTempSample()) #Add measurement to DB
@@ -58,6 +60,7 @@ db.addMeasurement(current_brew_id, getGravSample(), getTempSample()) #Add measur
 #Main loop
 while (1):
     time_now = time.time()
+
 
     #Take sample
     if (time_now - start_sample_time) > sample_time:
@@ -73,7 +76,7 @@ while (1):
     #Get
     if len(temp_samples):
         if view==0:
-            interface.disp1(temp_samples[-1], brew_name, grav_samples[-1], target_temp)
+            interface.disp1(temp_samples[-1], brew_name, brewer, grav_samples[-1], target_temp)
 
         elif view==1:
             interface.disp2(OG, FG, grav_samples[-1])
