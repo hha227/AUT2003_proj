@@ -102,9 +102,9 @@ while (1):
     #Update screen
     if view==0:
         try:
-            interface.disp1(temp_samples[-1], brew_name, grav_samples[-1], target_temp)
+            interface.disp1(temp_samples[-1], brew_name, brewer, grav_samples[-1], target_temp)
         except IndexError:
-            interface.disp1(initial_temp, brew_name, initial_grav, target_temp)
+            interface.disp1(initial_temp, brew_name, brewer, initial_grav, target_temp)
     elif view==1:
         try:
             interface.disp2(OG, FG, grav_samples[-1])
