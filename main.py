@@ -45,6 +45,7 @@ def getGravSample():
     return filtered_data
 
 #Init
+print('Initializing')
 current_brew_id = db.getCurrentBrewId()
 brew_name = db.getBrewInfo('BrewName', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
@@ -54,13 +55,16 @@ start_sample_time = time.time()
 start_average_time = time.time()
 temp_samples = []
 grav_samples = []
+print('Init complete')
 
 
 #Take initial spot sample
+print('Sampling')
 initial_temp = getTempSample()
 initial_grav = getGravSample()
 db.addMeasurement(current_brew_id, initial_grav, initial_temp) #Add measurement to DB
-
+print('Sampling complete')
+print('Running')
 
 #Main loop
 while (1):
@@ -68,17 +72,27 @@ while (1):
 
     #Take sample if sample-time is reached
     if (time_now - start_sample_time) > sample_time:
+        print('Sampling')
         #TODO: Insert code for displaying a "busy"-screen
-        temp_samples.append(getTempSample())
+        try:
+            temp_samples.append(getTempSample())
+        except:
+            print('Temperature sensor offline')
+            print('Using target temp')
+            temp_samples.append(target_temp)
         grav_samples.append(getGravSample())
         start_sample_time = time_now
+        print('Running')
 
     #Average samples and insert to DB if averaging time is reached
     if (time_now - start_average_time) > average_time:
+        print('Averaging samples')
         db.addMeasurement(current_brew_id, np.mean(grav_samples), np.mean(temp_samples)) #Add averagde of measurements from last hour to DB
+        print('Data added to database')
         start_average_time = time_now
         temp_samples.clear()
         grav_samples.clear()
+        print('Running')
 
     #Update screen
     if view==0:
@@ -91,7 +105,7 @@ while (1):
             interface.disp2(OG, FG, grav_samples[-1])
         except IndexError:
             interface.disp2(OG, FG, initial_grav)
-            
+
 #
 #    if len(temp_samples):
 #        if view==0:
