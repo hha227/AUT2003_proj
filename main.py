@@ -14,8 +14,21 @@ average_time = 60 #Seconds between avaraging data and uploading to DB
 no_load_samples = 30 #Number of loadcell samples
 
 
+#Function definitions
+def getTempSample():
+    temp = t_sensor.gettemp()
+    return temp
 
-#Konfigurerer interrupt ved tastetrykk
+def getGravSample():
+    raw_data = loadcell.getreadings(no_load_samples)
+    filtered_data = filter.filterData(raw_data)
+    return filtered_data
+
+#Init
+print('Initializing')
+
+#Configuring interrupts
+print('Configuring interrupts')
 button1=11  # Input for knapp
 button2=9   # Input for knapp
 def setmode0(pin):
@@ -30,28 +43,22 @@ GPIO.setup(button2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(button1, GPIO.RISING, callback=setmode0)
 GPIO.add_event_detect(button2, GPIO.RISING, callback=setmode1)
 
-
+#Setting defualt screen
 view=0
 
 
-#Function definitions
-def getTempSample():
-    temp = t_sensor.gettemp()
-    return temp
-
-def getGravSample():
-    raw_data = loadcell.getreadings(no_load_samples)
-    filtered_data = filter.filterData(raw_data)
-    return filtered_data
-
-#Init
-print('Initializing')
+#Get info from database
+print('Collecting info from databse')
 current_brew_id = db.getCurrentBrewId()
 brew_name = db.getBrewInfo('BrewName', current_brew_id)
 brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
+
+
+#Initialize sampling
+print('Initializing sampling')
 start_sample_time = time.time()
 start_average_time = time.time()
 temp_samples = []
@@ -62,14 +69,14 @@ print('Init complete')
 
 
 #Take initial spot sample
-print('Sampling')
+print('Collecting initial sample')
 initial_temp = getTempSample()
 initial_grav = getGravSample()
 db.addMeasurement(current_brew_id, initial_grav, initial_temp) #Add measurement to DB
-print('Sampling complete')
-print('Running')
+print('Sample collected')
 
 #Main loop
+print('Running main program')
 while (1):
     time_now = time.time()
 
@@ -85,6 +92,7 @@ while (1):
             temp_samples.append(target_temp)
         grav_samples.append(getGravSample())
         start_sample_time = time_now
+        print('Sample collected')
         print('Running')
 
     #Average samples and insert to DB if averaging time is reached
