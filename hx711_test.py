@@ -20,11 +20,9 @@ try:
         channel='A')  # Select desired channel. Either 'A' or 'B' at any time.
 
     while(1):
-        data = hx.get_raw_data_mean(readings=10)
+        data = hx.get_raw_data_mean(readings=30)
         print(data)
-        time.sleep(1)
-        hx.reset()
-
+        #time.sleep(0.01)
 
 except KeyboardInterrupt:
     GPIO.cleanup

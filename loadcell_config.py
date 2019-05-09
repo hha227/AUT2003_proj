@@ -24,6 +24,6 @@ def getreadings(nr):
     return readings
 
 
-def get_density(OG, hxdata, scale_ratio):   # Regner massetetthet fra data
-    density=OG(1-scale_ratio*hxdata)
+def get_density(hxdata, scale_ratio, OG, OG_data ):   # Regner massetetthet fra data
+    density=OG-(scale_ratio*(OG_data-hxdata))
     return density
