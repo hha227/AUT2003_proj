@@ -1,5 +1,15 @@
 # AUT2003_proj
 
+## Førsteprioritet TODO
+
+* Spørre Ida om statistikk
+
+* Implementere filter
+
+* Spørre Bernt om forsterker
+
+* Teste i praksis
+
 ## Mål:
 
 * Måle relativ tetthet til væske under gjæring
