@@ -6,8 +6,25 @@ def addBrew(brew_name, brewer, og, target_fg, target_temp):
     cursor = db.cursor()
     #Creating sql query
     sql = "INSERT INTO BREW_INFO(BrewName, Brewer, OG, TargetFG, TargetTemp)\
-          VALUES('{}','{}','{:05.3f}','{:05.3f}','{:d}');\
+          VALUES('{}','{}','{:05.3f}','{:05.3f}','{:d}')\
           ".format(brew_name, brewer, og, target_fg, target_temp)
+    try:
+        cursor.execute(sql)
+        db.commit()
+    except:
+        db.rollback()
+    finally:
+        db.close()
+
+
+def addCalibrationConstant(brew_id, calibration_constant):
+    db = pymysql.connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'], cfg.mysql['database']) #Open DB-connection
+    cursor = db.cursor()
+    #Creating sql query
+    sql = "UPDATE BREW_INFO\
+           SET CalibrationConstant = {:d}\
+           WHERE BrewID = {:d}\
+          ".format(brew_id, calibration_constant)
     try:
         cursor.execute(sql)
         db.commit()

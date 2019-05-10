@@ -19,7 +19,7 @@ print('reading..')
 readings = getreadings(num_readings)
 
 # Save to textfile
-f = open("dataset4_noweight.py", "a")
+f = open("dataset5_totang.py", "a")
 f.write('data = [')
 for val in readings:
     f.write('{}, '.format(val))

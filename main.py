@@ -8,9 +8,10 @@ import time
 import filter
 import RPi.GPIO as GPIO
 
+
+
 #Loadcell Configuration
 scale_ratio = 0.000000368
-OG_rawdata = 545000
 
 #Configuration paramters
 sample_time = 60  #Seconds between evry sample
@@ -23,10 +24,10 @@ def getTempSample():
     temp = t_sensor.gettemp()
     return temp
 
-def getGravSample(scale_ratio, OG, OG_rawdata):
+def getGravSample(scale_ratio, OG, calibration_constant):
     raw_data = loadcell.getreadings(no_load_samples)
     filtered_data = filter.filterData(raw_data)
-    gravity = loadcell.get_density(filtered_data, scale_ratio, OG, OG_rawdata)
+    gravity = loadcell.get_density(filtered_data, scale_ratio, OG, calibration_constant)
     return gravity
 
 #Init
@@ -59,6 +60,10 @@ brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
+calibration_constant = int(db.getBrewInfo('calibration_constant', current_brew_id))
+if calibration_constant == "None":
+    calibration_constant = filter.filterData(loadcell.getreadings(1000))
+    db.addCalibrationConstant(current_brew_id, calibration_constant)
 
 
 #Initialize sampling
@@ -73,7 +78,7 @@ time.sleep(1)
 #Take initial spot sample
 print('Collecting initial sample')
 initial_temp = getTempSample()
-initial_grav = getGravSample(scale_ratio, OG, OG_rawdata)
+initial_grav = getGravSample(scale_ratio, OG, calibration_constant)
 db.addMeasurement(current_brew_id, initial_grav, initial_temp) #Add measurement to DB
 print('Sample collected')
 time.sleep(1)
@@ -95,7 +100,7 @@ try:
                 print('Temperature sensor offline')
                 print('Using target temp')
                 temp_samples.append(target_temp)
-            grav_samples.append(getGravSample(scale_ratio, OG, OG_rawdata))
+            grav_samples.append(getGravSample(scale_ratio, OG, calibration_constant))
             start_sample_time = time_now
             print('Sample collected')
 
@@ -123,7 +128,7 @@ try:
                 interface.disp2(OG, FG, initial_grav)
 except KeyboardInterrupt:
     GPIO.cleanup()
-    print('Cleaning GPIO')
+    print('\nCleaning GPIO')
 #
 #    if len(temp_samples):
 #        if view==0:
