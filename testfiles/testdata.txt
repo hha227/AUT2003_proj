@@ -1,0 +1,5 @@
+Rawdata at 186g: 545000 (OG) 1.055
+Rawdata at 155g: 420000 (FG) 1.009
+Scalefactor = (1.055-1.009)/(545000-420000)
+=0,000000368
+SG OG-scalefactor*(OG_rawdata-measurement)
