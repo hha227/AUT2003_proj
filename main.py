@@ -61,7 +61,8 @@ brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
-calibration_constant = db.getBrewInfo('CalibrationConstant')
+calibration_constant = db.getBrewInfo('CalibrationConstant', current_brew_id)
+print(calibration_constant)
 
 
 #Initialize sampling
@@ -126,7 +127,7 @@ try:
                 interface.disp2(OG, FG, initial_grav)
 except KeyboardInterrupt:
     GPIO.cleanup()
-    print('Cleaning GPIO')
+    print('\nCleaning GPIO')
 #
 #    if len(temp_samples):
 #        if view==0:
