@@ -1,8 +1,6 @@
 import numpy as np
 import statistics as stat
 
-treshold = 3
-
 def removeFalseData(input_data):
     while(1):
         try:
@@ -11,32 +9,16 @@ def removeFalseData(input_data):
             break
     return(input_data)
 
-def removeNegatives(input_data):
-    processed_data = []
-    for val in input_data:
-        if val > 0:
-            processed_data.append(val)
-    return processed_data
-
 def removeOutliers(input_data):
-    dataset = removeNegatives(input_data)
     processed_data = []
-    med = stat.median(dataset)
-    avg = np.mean(dataset)
-    stdev = np.std(dataset)
+    med = stat.median(input_data)
     for val in input_data:
         score = abs(val-med)
         if score < 500:
             processed_data.append(val)
-    #    z_score = abs(((val) - avg)/stdev)
-    #    if z_score < treshold:
-    #        processed_data.append(val)
     return processed_data
 
 def filterData(input_data):
-    #print(input_data)
     dataset = removeFalseData(input_data)
     dataset = removeOutliers(dataset)
-    #print('filtered')
-    #print(dataset)
-    return np.mean(dataset)
+    return int(np.mean(dataset))
