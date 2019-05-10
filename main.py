@@ -60,10 +60,14 @@ brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
-calibration_constant = int(db.getBrewInfo('calibration_constant', current_brew_id))
-if calibration_constant == "None":
-    calibration_constant = filter.filterData(loadcell.getreadings(1000))
+
+#Lag funksjon for dette
+calibration_constant = db.getBrewInfo('CalibrationConstant', current_brew_id)
+if calibration_constant == None:
+    calibration_constant = filter.filterData(loadcell.getreadings(100))
     db.addCalibrationConstant(current_brew_id, calibration_constant)
+else:
+    calibration_constant = int(calibration_constant)
 
 
 #Initialize sampling

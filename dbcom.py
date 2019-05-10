@@ -24,7 +24,7 @@ def addCalibrationConstant(brew_id, calibration_constant):
     sql = "UPDATE BREW_INFO\
            SET CalibrationConstant = {:d}\
            WHERE BrewID = {:d}\
-          ".format(brew_id, calibration_constant)
+          ".format(calibration_constant, brew_id)
     try:
         cursor.execute(sql)
         db.commit()
