@@ -19,14 +19,14 @@ def removeNegatives(input_data):
     return processed_data
 
 def removeOutliers(input_data):
-    dataset = removeNegatives(input_data)
+    #dataset = removeNegatives(input_data)
     processed_data = []
-    med = stat.median(dataset)
-    avg = np.mean(dataset)
-    stdev = np.std(dataset)
-    for val in dataset:
-        score = abs((val-med)/med)*100
-        if score < 10:
+    med = stat.median(input_data)
+    avg = np.mean(input_data)
+    stdev = np.std(input_data)
+    for val in input_data:
+        score = abs(val-med)
+        if score < 1000:
             processed_data.append(val)
     #    z_score = abs(((val) - avg)/stdev)
     #    if z_score < treshold:
