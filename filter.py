@@ -24,9 +24,9 @@ def removeOutliers(input_data):
     med = stat.median(dataset)
     avg = np.mean(dataset)
     stdev = np.std(dataset)
-    for val in dataset:
-        score = abs((val-med)/med)*100
-        if score < 10:
+    for val in input_data:
+        score = abs(val-med)
+        if score < 500:
             processed_data.append(val)
     #    z_score = abs(((val) - avg)/stdev)
     #    if z_score < treshold:
