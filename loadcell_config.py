@@ -25,5 +25,5 @@ def getreadings(nr):
 
 
 def get_density(hxdata, scale_ratio, OG, calibration_constant):   # Regner massetetthet fra data
-    density=OG-(scale_ratio*calibration_constant-hxdata))
+    density=OG-(scale_ratio*calibration_constant-hxdata)
     return density
