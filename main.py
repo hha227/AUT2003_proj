@@ -8,6 +8,8 @@ import time
 import filter
 import RPi.GPIO as GPIO
 
+
+
 #Loadcell Configuration
 scale_ratio = 0.000000368
 OG_rawdata = 545000
@@ -59,6 +61,7 @@ brewer = db.getBrewInfo('Brewer', current_brew_id)
 target_temp = db.getBrewInfo('TargetTemp', current_brew_id)
 OG = db.getBrewInfo('OG', current_brew_id)
 FG = db.getBrewInfo('TargetFG', current_brew_id)
+calibration_constant = db.getBrewInfo('CalibrationConstant')
 
 
 #Initialize sampling
