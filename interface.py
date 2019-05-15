@@ -63,7 +63,7 @@ def disp2(OG, FG, SG):
     draw.rectangle((0,0, width, height), outline=0, fill=0)
     draw.rectangle((8,height/2-6, width-8, height/2+6), outline=255, fill=0)
     draw.line((x,12, width,12), fill=255)
-    draw.rectangle((8,height/2-5, 8+(OG-SG)/(OG-FG)*width-8, height/2+5), outline=255, fill=255)
+    draw.rectangle((9,height/2-5, 8+(OG-SG)/(OG-FG)*width-8, height/2+5), outline=255, fill=255)
     draw.text((x, 0), "Fremgang:", font=font, fill=255)
     draw.text((x, 15), "OG", font=font, fill=255)
     draw.text((width-12, 15), "FG", font=font, fill=255)

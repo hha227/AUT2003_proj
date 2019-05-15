@@ -11,7 +11,7 @@ import RPi.GPIO as GPIO
 
 
 #Loadcell Configuration
-scale_ratio = 0.000000368
+scale_ratio = 0.000000519739#6,1070230765380187215297592231066e-7
 
 #Configuration paramters
 sample_time = 60  #Seconds between evry sample
