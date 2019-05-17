@@ -1,5 +1,17 @@
 # AUT2003_proj
 
+## Parts list:
+
+* HX711 load cell amplifier     (https://tinyurl.com/yyajg9ku)........NOK 7.23
+
+* Load cell     (https://tinyurl.com/y2k4j7ky)........................NOK 34.63                 
+
+* OLED display  (https://tinyurl.com/y4jqnupa)........................NOK 24.68             
+
+* Waterproof temperature sensor (https://tinyurl.com/yyx53cwk)........NOK 10.47
+
+Total: 77.01,-
+
 ## Førsteprioritet TODO
 
 * Spørre Ida om statistikk
